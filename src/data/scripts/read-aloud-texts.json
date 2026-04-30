@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ra-001",
+    "title": "The Power of Habit",
+    "level": "intermediate",
+    "text": "Habits are powerful forces in our lives. Every habit starts with a psychological pattern called a habit loop, which is a three-part process. First, there is a cue, a trigger that tells your brain to go into automatic mode and which habit to use. Then there is the routine, which can be physical, mental, or emotional. Finally, there is a reward, which helps your brain figure out if this particular loop is worth remembering for the future. Over time, this loop becomes more and more automatic."
+  },
+  {
+    "id": "ra-002",
+    "title": "The Importance of Sleep",
+    "level": "intermediate",
+    "text": "Sleep is one of the most important things you can do for your health. When you sleep, your brain clears out waste products, consolidates memories, and repairs itself. Adults need between seven and nine hours of sleep each night. Without enough sleep, your ability to concentrate, make decisions, and control your emotions is significantly reduced. Long-term sleep deprivation is linked to serious health conditions including heart disease, diabetes, and depression. Prioritizing sleep is one of the best investments you can make in your wellbeing."
+  },
+  {
+    "id": "ra-003",
+    "title": "How to Give Great Feedback",
+    "level": "intermediate",
+    "text": "Giving effective feedback is a skill that takes practice. Great feedback is specific, actionable, and timely. Instead of saying someone did a bad job, try to describe exactly what happened and what impact it had. Focus on the behavior, not the person. For example, rather than saying you are disorganized, you could say the report was missing three key sections, which made it harder for the team to make a decision. Always end with a clear suggestion for improvement. Feedback given this way is more likely to be received well and lead to real change."
+  },
+  {
+    "id": "ra-004",
+    "title": "The Science of First Impressions",
+    "level": "advanced",
+    "text": "Research suggests that people form lasting impressions of others within the first few seconds of meeting them. These snap judgments are based on a range of cues, including facial expressions, posture, tone of voice, and even clothing. While first impressions can be wrong, they are surprisingly difficult to change once formed. This is because of confirmation bias — once we decide we like or dislike someone, we tend to notice only the information that supports that initial judgment. Being aware of this tendency can help us be more open-minded and give people a fair chance."
+  },
+  {
+    "id": "ra-005",
+    "title": "Why Deep Work Matters",
+    "level": "advanced",
+    "text": "In our age of constant connectivity, the ability to focus without distraction has become both rare and valuable. Cal Newport calls this deep work — the ability to perform cognitively demanding tasks in a state of distraction-free concentration. Deep work produces results that are hard to replicate, pushes your cognitive abilities to their limits, and creates new value. Unfortunately, many modern work environments actively undermine deep work through constant meetings, open offices, and instant messaging tools. To do your best work, you need to deliberately protect time for focused effort and treat your attention as a precious resource."
+  },
+  {
+    "id": "ra-006",
+    "title": "The Art of Listening",
+    "level": "beginner",
+    "text": "Listening is one of the most important communication skills. When you really listen to someone, you show them that you respect them and care about what they say. Good listeners make eye contact and nod to show they understand. They do not interrupt or think about what they want to say next while the other person is still talking. After someone finishes speaking, a good listener often asks a question to learn more. This makes the other person feel heard and valued. Practicing good listening can improve all of your relationships."
+  },
+  {
+    "id": "ra-007",
+    "title": "Working Across Cultures",
+    "level": "advanced",
+    "text": "In today's global workplace, professionals increasingly collaborate with colleagues from different cultural backgrounds. Cultural differences can affect communication styles, decision-making processes, attitudes toward hierarchy, and expectations around time. For example, in some cultures, direct disagreement is seen as honest and efficient, while in others it is considered rude. Understanding these differences does not mean stereotyping people, but rather being curious and open when something seems confusing or unexpected. The most effective global collaborators are those who ask questions, check their assumptions, and adapt their communication style to build genuine trust with people who see the world differently."
+  },
+  {
+    "id": "ra-008",
+    "title": "Morning Routines",
+    "level": "beginner",
+    "text": "Many successful people say that a good morning routine helps them start the day well. A morning routine is a set of things you do every morning in the same order. Some people exercise in the morning. Others read, write in a journal, or meditate. Eating a healthy breakfast gives your body the energy it needs. Avoiding your phone for the first thirty minutes of the day can help you feel more calm and focused. You do not need a perfect morning routine. Even a few small habits can make a big difference in how you feel for the rest of the day."
+  }
+]
