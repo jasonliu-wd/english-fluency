@@ -1,0 +1,68 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "High-frequency words",
+      "words": [
+        { "word": "perspective", "meaning_zh": "观点 / 视角", "example": "From my perspective, this is the right call." },
+        { "word": "clarify", "meaning_zh": "澄清 / 说明", "example": "Could you clarify what you mean by that?" },
+        { "word": "elaborate", "meaning_zh": "详细说明", "example": "Can you elaborate on your idea?" },
+        { "word": "acknowledge", "meaning_zh": "承认 / 认可", "example": "I acknowledge that mistakes were made." },
+        { "word": "assume", "meaning_zh": "假设 / 设想", "example": "Don't assume — ask first." },
+        { "word": "emphasize", "meaning_zh": "强调", "example": "I want to emphasize how important this deadline is." },
+        { "word": "significant", "meaning_zh": "重要的 / 显著的", "example": "This is a significant change to the workflow." },
+        { "word": "consequently", "meaning_zh": "因此 / 结果", "example": "He missed the meeting; consequently, he missed the key decision." },
+        { "word": "nevertheless", "meaning_zh": "尽管如此 / 然而", "example": "It was hard. Nevertheless, we finished on time." },
+        { "word": "furthermore", "meaning_zh": "此外 / 而且", "example": "The plan is efficient; furthermore, it saves money." }
+      ]
+    },
+    {
+      "week": 2,
+      "theme": "Phrasal verbs",
+      "words": [
+        { "word": "bring up", "meaning_zh": "提出（话题）", "example": "She brought up an interesting point in the meeting." },
+        { "word": "follow up", "meaning_zh": "跟进", "example": "I'll follow up with you by email." },
+        { "word": "figure out", "meaning_zh": "弄清楚 / 想出", "example": "We need to figure out the root cause." },
+        { "word": "come across", "meaning_zh": "偶然发现 / 给人印象", "example": "He comes across as very confident." },
+        { "word": "run into", "meaning_zh": "偶然遇到 / 碰到问题", "example": "We ran into a few bugs during testing." },
+        { "word": "look into", "meaning_zh": "调查 / 研究", "example": "I'll look into that issue today." },
+        { "word": "put off", "meaning_zh": "推迟", "example": "Don't put off what you can do today." },
+        { "word": "take on", "meaning_zh": "承担 / 接受（挑战）", "example": "I'm happy to take on more responsibility." },
+        { "word": "back up", "meaning_zh": "支持 / 备份", "example": "Can you back up that claim with data?" },
+        { "word": "check in", "meaning_zh": "联络 / 确认状态", "example": "Let's check in again on Friday." }
+      ]
+    },
+    {
+      "week": 3,
+      "theme": "Idioms & natural expressions",
+      "words": [
+        { "word": "on the same page", "meaning_zh": "达成共识", "example": "Let's make sure we're all on the same page." },
+        { "word": "touch base", "meaning_zh": "联系一下 / 简短沟通", "example": "I'll touch base with you after the call." },
+        { "word": "ballpark figure", "meaning_zh": "大概数字", "example": "Give me a ballpark figure — I don't need exact numbers." },
+        { "word": "the bottom line", "meaning_zh": "最终结果 / 关键点", "example": "The bottom line is we're over budget." },
+        { "word": "a heads-up", "meaning_zh": "提前告知 / 预警", "example": "Just wanted to give you a heads-up about the change." },
+        { "word": "bandwidth", "meaning_zh": "（工作）余力 / 精力", "example": "I don't have the bandwidth for another project right now." },
+        { "word": "move the needle", "meaning_zh": "产生实质影响", "example": "We need something that actually moves the needle." },
+        { "word": "circle back", "meaning_zh": "稍后再讨论", "example": "Let's circle back to that after the break." },
+        { "word": "in the loop", "meaning_zh": "知情 / 被告知", "example": "Keep me in the loop on any updates." },
+        { "word": "a long shot", "meaning_zh": "希望不大 / 赌注很大", "example": "It's a long shot, but worth trying." }
+      ]
+    },
+    {
+      "week": 4,
+      "theme": "Advanced & nuanced vocabulary",
+      "words": [
+        { "word": "nuance", "meaning_zh": "细微差别", "example": "There's an important nuance you're missing." },
+        { "word": "ambiguous", "meaning_zh": "模糊的 / 有歧义的", "example": "The requirements are too ambiguous to proceed." },
+        { "word": "pragmatic", "meaning_zh": "务实的", "example": "We need a pragmatic approach, not an idealistic one." },
+        { "word": "articulate", "meaning_zh": "（能）清晰表达的", "example": "She's very articulate — always easy to understand." },
+        { "word": "concise", "meaning_zh": "简洁的", "example": "Please keep your response concise." },
+        { "word": "compelling", "meaning_zh": "有说服力的 / 引人注目的", "example": "That's a compelling argument." },
+        { "word": "proactive", "meaning_zh": "主动的 / 积极的", "example": "Be proactive — don't wait for problems to appear." },
+        { "word": "streamline", "meaning_zh": "简化 / 使高效", "example": "We should streamline the approval process." },
+        { "word": "mitigate", "meaning_zh": "减轻 / 缓解（风险）", "example": "What can we do to mitigate the risk?" },
+        { "word": "alignment", "meaning_zh": "一致性 / 对齐", "example": "We need alignment across all teams before we launch." }
+      ]
+    }
+  ]
+}
