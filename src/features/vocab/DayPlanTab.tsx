@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 import plan from '@/data/vocab-plans/30-day-plan.json'
 
 type Props = { onAdded: () => void }
@@ -18,7 +19,7 @@ export default function DayPlanTab({ onAdded }: Props) {
     const today = new Date().toISOString().split('T')[0]
 
     const rows = week.words.map((w) => ({
-      user_id: user?.id ?? '',
+      user_id: user?.id ?? DEV_USER_ID,
       word: w.word,
       meaning_zh: w.meaning_zh,
       example: w.example,

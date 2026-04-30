@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 import WritingForm from './WritingForm'
 import WritingList from './WritingList'
 
@@ -25,7 +26,7 @@ export default function WritingPage() {
     const { data } = await supabase
       .from('writing_entries')
       .select('*')
-      .eq('user_id', user?.id ?? '')
+      .eq('user_id', user?.id ?? DEV_USER_ID)
       .order('created_at', { ascending: false })
     if (data) setEntries(data)
     setLoading(false)

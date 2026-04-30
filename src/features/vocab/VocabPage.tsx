@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 import { reviewCard, isDue, type Rating } from '@/lib/srs'
 import ReviewCard from './ReviewCard'
 import AddCardForm from './AddCardForm'
@@ -30,7 +31,7 @@ export default function VocabPage() {
     const { data } = await supabase
       .from('vocab_cards')
       .select('*')
-      .eq('user_id', user?.id ?? '')
+      .eq('user_id', user?.id ?? DEV_USER_ID)
       .order('created_at', { ascending: false })
     if (data) {
       setCards(data)

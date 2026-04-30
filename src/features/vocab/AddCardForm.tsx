@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 
 type Props = { onAdded: () => void }
 
@@ -21,7 +22,7 @@ export default function AddCardForm({ onAdded }: Props) {
 
     const today = new Date().toISOString().split('T')[0]
     const { error } = await supabase.from('vocab_cards').insert({
-      user_id: user?.id ?? '',
+      user_id: user?.id ?? DEV_USER_ID,
       word: word.trim(),
       meaning_zh: meaning.trim(),
       example: example.trim() || null,

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 
 type Props = { onSaved: () => void }
 
@@ -26,7 +27,7 @@ export default function WritingForm({ onSaved }: Props) {
     setError('')
 
     const { error } = await supabase.from('writing_entries').insert({
-      user_id: user?.id ?? '',
+      user_id: user?.id ?? DEV_USER_ID,
       original: original.trim(),
       polished: polished.trim(),
       tags,
