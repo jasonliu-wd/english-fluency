@@ -6,6 +6,7 @@ import { reviewCard, isDue, type Rating } from '@/lib/srs'
 import ReviewCard from './ReviewCard'
 import AddCardForm from './AddCardForm'
 import DayPlanTab from './DayPlanTab'
+import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 type VocabCard = {
   id: string
@@ -157,6 +158,8 @@ export default function VocabPage() {
           </div>
         )
       )}
+
+      <MarkCompleteButton activity="vocab" />
     </div>
   )
 }

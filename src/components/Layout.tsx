@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
+import ReminderBanner from '@/features/progress/ReminderBanner'
 
 const nav = [
   { to: '/', label: '🏠', title: 'Home' },
@@ -8,7 +9,7 @@ const nav = [
   { to: '/shadow', label: '📖', title: 'Shadow' },
   { to: '/drill', label: '💭', title: 'Drill' },
   { to: '/speaking', label: '🎙️', title: 'Speaking' },
-  { to: '/phrases', label: '📌', title: 'Phrases' },
+  { to: '/progress', label: '📊', title: 'Progress' },
 ]
 
 export default function Layout() {
@@ -24,11 +25,13 @@ export default function Layout() {
         </button>
       </header>
 
-      <main className="flex-1 overflow-y-auto pb-20 px-4 pt-4">
+      <ReminderBanner />
+
+      <main className="flex-1 overflow-y-auto pb-safe px-4 pt-4">
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around py-2 max-w-2xl mx-auto">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around pt-2 pb-nav max-w-2xl mx-auto">
         {nav.map(({ to, label, title }) => (
           <NavLink
             key={to}

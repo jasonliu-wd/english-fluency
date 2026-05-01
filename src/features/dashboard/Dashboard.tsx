@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/store/authStore'
 import { Link } from 'react-router-dom'
+import DailyChecklist from '@/features/progress/DailyChecklist'
 
 const features = [
   { to: '/vocab', icon: '🃏', title: 'Flashcards', desc: 'Review due cards with spaced repetition' },
@@ -20,6 +21,8 @@ export default function Dashboard() {
         <h1 className="text-2xl font-bold text-gray-900">Good day! 👋</h1>
         <p className="text-sm text-gray-500 mt-0.5">{email}</p>
       </div>
+
+      <DailyChecklist />
 
       <div className="grid grid-cols-2 gap-3">
         {features.map(({ to, icon, title, desc }) => (

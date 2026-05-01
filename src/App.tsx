@@ -12,6 +12,7 @@ import ShadowPage from '@/features/shadow/ShadowPage'
 import DrillPage from '@/features/drill/DrillPage'
 import SpeakingPage from '@/features/speaking/SpeakingPage'
 import PhrasesPage from '@/features/phrases/PhrasesPage'
+import ProgressPage from '@/features/progress/ProgressPage'
 
 export default function App() {
   const { setSession, setLoading } = useAuthStore()
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="drill" element={<DrillPage />} />
           <Route path="speaking" element={<SpeakingPage />} />
           <Route path="phrases" element={<PhrasesPage />} />
+          <Route path="progress" element={<ProgressPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

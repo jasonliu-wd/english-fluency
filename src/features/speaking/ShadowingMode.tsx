@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../store/authStore'
-import { ALL_SCRIPTS } from '../../data/scripts/index'
+import { ALL_SCRIPTS, getSentenceText } from '../../data/scripts/index'
 
 type Phase = 'pick' | 'playing' | 'recording' | 'scored'
 
@@ -27,7 +27,7 @@ export default function ShadowingMode() {
   const recRef = useRef<any>(null)
 
   const script = ALL_SCRIPTS[scriptIdx]
-  const sentence = script?.sentences[sentenceIdx] ?? ''
+  const sentence = script ? getSentenceText(script.sentences[sentenceIdx]) : ''
   const totalSentences = script?.sentences.length ?? 0
 
   function speak() {

@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../store/authStore'
 import DrillTimer from './DrillTimer'
 import promptsData from '../../data/drill-prompts/prompts.json'
+import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 type DrillSessionRow = {
   id: string
@@ -339,6 +340,8 @@ export default function DrillPage() {
           ))
         )}
       </div>
+
+      <MarkCompleteButton activity="thinking" />
     </div>
   )
 }

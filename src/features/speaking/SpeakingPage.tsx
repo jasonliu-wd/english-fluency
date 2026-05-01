@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ReadAloudMode from './ReadAloudMode'
 import ShadowingMode from './ShadowingMode'
 import PronunciationMode from './PronunciationMode'
+import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 type Mode = 'read_aloud' | 'shadowing' | 'pronunciation'
 
@@ -53,6 +54,8 @@ export default function SpeakingPage() {
           </button>
         ))}
       </div>
+
+      <MarkCompleteButton activity="speaking" />
     </div>
   )
 }

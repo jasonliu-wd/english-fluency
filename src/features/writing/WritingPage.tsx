@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/authStore'
 import { DEV_USER_ID } from '@/lib/constants'
 import WritingForm from './WritingForm'
 import WritingList from './WritingList'
+import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 type Entry = {
   id: string
@@ -73,6 +74,8 @@ export default function WritingPage() {
           ? <div className="text-center py-16 text-gray-400">Loading…</div>
           : <WritingList entries={entries} onDeleted={fetchEntries} />
       )}
+
+      <MarkCompleteButton activity="writing" />
     </div>
   )
 }

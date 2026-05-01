@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ScriptBrowser from './ScriptBrowser'
 import ScriptPlayer from './ScriptPlayer'
 import type { Script } from '@/data/scripts/index'
+import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 export default function ShadowPage() {
   const [selected, setSelected] = useState<Script | null>(null)
@@ -24,6 +25,7 @@ export default function ShadowPage() {
         </p>
       </div>
       <ScriptBrowser onSelect={setSelected} />
+      <MarkCompleteButton activity="shadowing" />
     </div>
   )
 }
