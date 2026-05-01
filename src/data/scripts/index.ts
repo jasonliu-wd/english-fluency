@@ -1,8 +1,12 @@
 import friends from './friends-s01e01.json'
-import tedBreneBrown from './ted-brene-brown.json'
+import tedBreneBrownText from './ted-brene-brown.json'
 import eslDaily from './esl-daily-conversations.json'
 import modernFamily from './modern-family-s01e01.json'
 import simonSinek from './simon-sinek-ted.json'
+import steveJobs from './steve-jobs-stanford.json'
+import breneBrown from './brene-brown-vulnerability.json'
+import obama from './obama-yes-we-can.json'
+import mcConaughey from './matthew-mcconaughey-oscar.json'
 
 export type TimedSentence = {
   id: number
@@ -29,16 +33,22 @@ export function isYouTubeScript(s: Script): s is Script & { youtube_id: string; 
 }
 
 export const ALL_SCRIPTS: Script[] = [
+  // YouTube-backed scripts (appear first)
   simonSinek as Script,
+  steveJobs as Script,
+  breneBrown as Script,
+  obama as Script,
+  mcConaughey as Script,
+  // Text-only scripts
   friends as Script,
   modernFamily as Script,
-  tedBreneBrown as Script,
+  tedBreneBrownText as Script,
   eslDaily as Script,
 ]
 
 export const CATEGORIES = [
   { key: 'all', label: 'All' },
-  { key: 'ted-talk', label: 'TED Talks' },
+  { key: 'ted-talk', label: 'TED / Speeches' },
   { key: 'tv-show', label: 'TV Shows' },
   { key: 'esl', label: 'ESL' },
 ]

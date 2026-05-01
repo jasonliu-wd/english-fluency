@@ -1,0 +1,24 @@
+{
+  "id": "obama-yes-we-can",
+  "title": "Yes We Can — Barack Obama",
+  "category": "ted-talk",
+  "description": "Obama's iconic 2008 New Hampshire primary speech — clear, powerful American English",
+  "youtube_id": "Fe751kMBwms",
+  "sentences": [
+    { "id": 1, "start": 8.0, "end": 20.0, "text": "I want to thank every single one of you who came out tonight, who worked so hard." },
+    { "id": 2, "start": 20.0, "end": 34.0, "text": "We know the battle ahead will be long. But always remember that, no matter what obstacles stand in our way, nothing can stand in the way of the power of millions of voices calling for change." },
+    { "id": 3, "start": 34.0, "end": 48.0, "text": "We have been told we cannot do this by a chorus of cynics. And they will only grow louder and more dissonant in the weeks and months to come." },
+    { "id": 4, "start": 48.0, "end": 62.0, "text": "We've been asked to pause for a reality check. We've been warned against offering the people of this nation false hope." },
+    { "id": 5, "start": 62.0, "end": 76.0, "text": "But in the unlikely story that is America, there has never been anything false about hope." },
+    { "id": 6, "start": 76.0, "end": 90.0, "text": "For when we have faced down impossible odds, when we've been told that we're not ready or that we shouldn't try or that we can't, generations of Americans have responded with a simple creed that sums up the spirit of a people: Yes, we can." },
+    { "id": 7, "start": 110.0, "end": 124.0, "text": "It was a creed written into the founding documents that declared the destiny of a nation: Yes, we can." },
+    { "id": 8, "start": 124.0, "end": 138.0, "text": "It was whispered by slaves and abolitionists as they blazed a trail towards freedom through the darkest of nights: Yes, we can." },
+    { "id": 9, "start": 138.0, "end": 152.0, "text": "It was sung by immigrants as they struck out from distant shores and pioneers who pushed westward against an unforgiving wilderness: Yes, we can." },
+    { "id": 10, "start": 152.0, "end": 166.0, "text": "It was the call of workers who organized, women who reached for the ballot, a president who chose the moon as our new frontier." },
+    { "id": 11, "start": 166.0, "end": 180.0, "text": "And the greatest risk we can take is to do nothing, to say nothing, to do nothing." },
+    { "id": 12, "start": 185.0, "end": 200.0, "text": "We know the challenges that tomorrow will bring are the greatest of our lifetime — two wars, a planet in peril, the worst financial crisis in a century." },
+    { "id": 13, "start": 200.0, "end": 215.0, "text": "Even as we stand here tonight, we know there are brave Americans waking up in the deserts of Iraq and the mountains of Afghanistan to risk their lives for us." },
+    { "id": 14, "start": 215.0, "end": 230.0, "text": "There are mothers and fathers who will lie awake after the children fall asleep and wonder how they'll make the mortgage, or pay their doctor's bills, or save enough for their child's college education." },
+    { "id": 15, "start": 235.0, "end": 250.0, "text": "There is new energy to harness, new jobs to be created, new schools to build, and threats to meet, alliances to repair." }
+  ]
+}
