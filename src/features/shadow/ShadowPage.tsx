@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ScriptBrowser from './ScriptBrowser'
 import ScriptPlayer from './ScriptPlayer'
+import AddVideoSection from './AddVideoSection'
 import type { Script } from '@/data/scripts/index'
 import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
@@ -24,6 +25,7 @@ export default function ShadowPage() {
           Listen sentence by sentence. Read along to build natural rhythm.
         </p>
       </div>
+      <AddVideoSection onPlay={setSelected} />
       <ScriptBrowser onSelect={setSelected} />
       <MarkCompleteButton activity="shadowing" />
     </div>
