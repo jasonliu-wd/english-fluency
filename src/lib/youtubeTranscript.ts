@@ -1,13 +1,15 @@
 import type { Script, TimedSentence } from '@/data/scripts/index'
 
-// Public Invidious instances — open-source YouTube proxies with CORS enabled
-// Called from the browser (your home/mobile IP), so not blocked like cloud servers
+// Invidious instances confirmed to have CORS enabled (browser-callable)
+// inv.nadeko.net and yewtu.be sometimes lack English tracks or block CORS
 const INVIDIOUS_INSTANCES = [
+  'https://invidious.fdn.fr',
+  'https://y.com.sb',
+  'https://invidious.nerdvpn.de',
   'https://inv.nadeko.net',
-  'https://yewtu.be',
-  'https://invidious.privacydev.net',
-  'https://yt.cdaut.de',
-  'https://invidious.io.lol',
+  'https://invidious.lunar.icu',
+  'https://vid.puffyan.us',
+  'https://invidious.privacyredirect.com',
 ]
 
 export function extractVideoId(input: string): string | null {
@@ -93,11 +95,12 @@ async function tryInstance(
       listData?.captions ?? []
     if (!captions.length) return null
 
-    // Prefer English auto-generated, then any English, then first track
+    // Require English — if this instance has no English captions, skip it
     const track =
       captions.find((c) => c.language_code === 'en' && c.label.toLowerCase().includes('auto')) ??
       captions.find((c) => c.language_code?.startsWith('en')) ??
-      captions[0]
+      captions.find((c) => c.label?.toLowerCase().startsWith('english'))
+    if (!track) return null
 
     // 2. Fetch the VTT caption file
     const vttUrl = track.url.startsWith('http') ? track.url : `${instance}${track.url}`

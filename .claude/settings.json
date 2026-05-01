@@ -4,7 +4,8 @@
       "Bash(xargs ls *)",
       "Bash(/Users/jason.liu3/.nvm/versions/node/v22.15.0/bin/npm run *)",
       "Bash(/Users/jason.liu3/.nvm/versions/node/v20.18.0/bin/npm run *)",
-      "Read(//Users/jason.liu3/.nvm/versions/node/**)"
+      "Read(//Users/jason.liu3/.nvm/versions/node/**)",
+      "Bash(node_modules/.bin/tsc --noEmit)"
     ]
   }
 }
