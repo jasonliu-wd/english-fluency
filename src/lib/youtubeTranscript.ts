@@ -1,15 +1,17 @@
 import type { Script, TimedSentence } from '@/data/scripts/index'
 
-// Invidious instances confirmed to have CORS enabled (browser-callable)
-// inv.nadeko.net and yewtu.be sometimes lack English tracks or block CORS
+// Invidious instances with CORS enabled — verified as of 2025-05
+// Pruned: invidious.fdn.fr (DNS), invidious.nerdvpn.de (CORS), invidious.lunar.icu (CORS),
+//         vid.puffyan.us (CORS), invidious.privacyredirect.com (403)
 const INVIDIOUS_INSTANCES = [
-  'https://invidious.fdn.fr',
-  'https://y.com.sb',
-  'https://invidious.nerdvpn.de',
   'https://inv.nadeko.net',
-  'https://invidious.lunar.icu',
-  'https://vid.puffyan.us',
-  'https://invidious.privacyredirect.com',
+  'https://y.com.sb',
+  'https://iv.ggtyler.dev',
+  'https://invidious.perennialte.ch',
+  'https://yt.artemislena.eu',
+  'https://invidious.flokinet.to',
+  'https://invidious.tiekoetter.com',
+  'https://invidious.jing.rocks',
 ]
 
 export function extractVideoId(input: string): string | null {
@@ -37,6 +39,21 @@ function parseTimestamp(ts: string): number {
   if (parts.length === 3) return +parts[0] * 3600 + +parts[1] * 60 + parseFloat(parts[2])
   if (parts.length === 2) return +parts[0] * 60 + parseFloat(parts[1])
   return parseFloat(ts)
+}
+
+// YouTube json3 caption format (returned when content-type is application/json)
+function parseJson3(data: unknown): { start: number; end: number; text: string }[] {
+  const segs: { start: number; end: number; text: string }[] = []
+  const events = ((data as Record<string, unknown>)?.events as {tStartMs?: number; dDurationMs?: number; segs?: {utf8?: string}[]}[]) ?? []
+  for (const ev of events) {
+    if (!ev.segs) continue
+    const text = ev.segs.map((s) => s.utf8 ?? '').join('').replace(/\n/g, ' ').trim()
+    if (!text || text === ' ') continue
+    const start = (ev.tStartMs ?? 0) / 1000
+    const dur = (ev.dDurationMs ?? 3000) / 1000
+    segs.push({ start, end: start + dur, text })
+  }
+  return segs
 }
 
 function parseVtt(vtt: string): { start: number; end: number; text: string }[] {
@@ -102,13 +119,29 @@ async function tryInstance(
       captions.find((c) => c.label?.toLowerCase().startsWith('english'))
     if (!track) return null
 
-    // 2. Fetch the VTT caption file
+    // 2. Fetch the caption file (VTT or JSON3)
     const vttUrl = track.url.startsWith('http') ? track.url : `${instance}${track.url}`
     const vttRes = await fetchWithTimeout(vttUrl, 8000)
     if (!vttRes.ok) return null
-    const vttText = await vttRes.text()
+    const contentType = vttRes.headers.get('content-type') ?? ''
 
-    const segs = parseVtt(vttText)
+    let segs: { start: number; end: number; text: string }[] = []
+    if (contentType.includes('json')) {
+      segs = parseJson3(await vttRes.json())
+    } else {
+      segs = parseVtt(await vttRes.text())
+    }
+
+    // If VTT parsing yielded nothing (e.g. rolling-text format), retry as json3
+    if (!segs.length) {
+      const sep = vttUrl.includes('?') ? '&' : '?'
+      const j3Url = vttUrl.replace(/[?&]format=[^&]*/g, '') + sep + 'format=json3'
+      try {
+        const j3Res = await fetchWithTimeout(j3Url, 8000)
+        if (j3Res.ok) segs = parseJson3(await j3Res.json())
+      } catch { /* ignore */ }
+    }
+
     if (!segs.length) return null
     const sentences = groupIntoSentences(segs)
 
