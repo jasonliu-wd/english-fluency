@@ -1,6 +1,8 @@
 -- Run this in the Supabase SQL editor to set up your database
 
 -- Writing entries
+grant usage on schema public to anon, authenticated, service_role;
+
 create table writing_entries (
   id uuid default gen_random_uuid() primary key,
   user_id uuid references auth.users(id) on delete cascade not null,
@@ -13,6 +15,8 @@ create table writing_entries (
 alter table writing_entries enable row level security;
 create policy "Users manage own writing" on writing_entries
   for all using (auth.uid() = user_id);
+grant select, insert, update, delete on writing_entries to authenticated;
+grant all on writing_entries to service_role;
 
 -- Vocab / flashcards
 create table vocab_cards (
@@ -30,6 +34,8 @@ create table vocab_cards (
 alter table vocab_cards enable row level security;
 create policy "Users manage own vocab" on vocab_cards
   for all using (auth.uid() = user_id);
+grant select, insert, update, delete on vocab_cards to authenticated;
+grant all on vocab_cards to service_role;
 
 -- Think in English drill sessions
 create table drill_sessions (
@@ -43,6 +49,8 @@ create table drill_sessions (
 alter table drill_sessions enable row level security;
 create policy "Users manage own drills" on drill_sessions
   for all using (auth.uid() = user_id);
+grant select, insert, update, delete on drill_sessions to authenticated;
+grant all on drill_sessions to service_role;
 
 -- Speaking sessions
 create table speaking_sessions (
@@ -56,6 +64,8 @@ create table speaking_sessions (
 alter table speaking_sessions enable row level security;
 create policy "Users manage own speaking" on speaking_sessions
   for all using (auth.uid() = user_id);
+grant select, insert, update, delete on speaking_sessions to authenticated;
+grant all on speaking_sessions to service_role;
 
 -- Phrase bank
 create table phrase_bank (
@@ -69,3 +79,5 @@ create table phrase_bank (
 alter table phrase_bank enable row level security;
 create policy "Users manage own phrases" on phrase_bank
   for all using (auth.uid() = user_id);
+grant select, insert, update, delete on phrase_bank to authenticated;
+grant all on phrase_bank to service_role;

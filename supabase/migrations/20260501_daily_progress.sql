@@ -19,3 +19,6 @@ CREATE POLICY "users own their progress"
   FOR ALL
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON daily_progress TO authenticated;
+GRANT ALL ON daily_progress TO service_role;
