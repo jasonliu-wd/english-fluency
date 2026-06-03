@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../store/authStore'
+import { DEV_USER_ID } from '@/lib/constants'
 import DrillTimer from './DrillTimer'
 import promptsData from '../../data/drill-prompts/prompts.json'
 import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
@@ -44,6 +45,7 @@ function pickPrompt(category: Category): string {
 
 export default function DrillPage() {
   const { user } = useAuthStore()
+  const userId = user?.id ?? DEV_USER_ID
 
   const [phase, setPhase] = useState<Phase>('pick')
   const [category, setCategory] = useState<Category>('random')
@@ -63,16 +65,16 @@ export default function DrillPage() {
   const totalSeconds = DURATIONS[durationIdx].seconds
 
   useEffect(() => {
-    if (!user) return
     fetchSessions()
-  }, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId])
 
   async function fetchSessions() {
     setLoadingSessions(true)
     const { data } = await supabase
       .from('drill_sessions')
       .select('*')
-      .eq('user_id', user!.id)
+      .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(20)
     setSessions((data as DrillSessionRow[]) ?? [])
@@ -154,11 +156,10 @@ export default function DrillPage() {
   }
 
   async function saveSession() {
-    if (!user) return
     setSaving(true)
     const fullTranscript = transcript.trim() || null
     await supabase.from('drill_sessions').insert({
-      user_id: user.id,
+      user_id: userId,
       prompt,
       transcript: fullTranscript,
       duration_seconds: totalSeconds - timeLeft,

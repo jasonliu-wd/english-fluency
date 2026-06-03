@@ -1,38 +1,49 @@
-import { useAuthStore } from '@/store/authStore'
 import { Link } from 'react-router-dom'
 import DailyChecklist from '@/features/progress/DailyChecklist'
 
-const features = [
-  { to: '/vocab', icon: '🃏', title: 'Flashcards', desc: 'Review due cards with spaced repetition' },
-  { to: '/writing', icon: '✍️', title: 'Writing Lab', desc: 'Compare your draft vs polished writing' },
-  { to: '/shadow', icon: '📖', title: 'Shadow Reading', desc: 'Read along with TV shows & TED talks' },
-  { to: '/drill', icon: '💭', title: 'Think in English', desc: 'Daily prompts to think & speak freely' },
-  { to: '/speaking', icon: '🎙️', title: 'Speaking Practice', desc: 'Read aloud, shadow, and pronounce' },
-  { to: '/phrases', icon: '📌', title: 'Phrase Bank', desc: 'Save natural phrases you want to remember' },
+const extras = [
+  { to: '/speaking', icon: '🎙️', title: 'Speaking Practice', desc: 'Read aloud & pronounce' },
+  { to: '/phrases', icon: '📌', title: 'Phrase Bank', desc: 'Lines you saved to keep' },
 ]
 
+function greeting(): string {
+  const h = new Date().getHours()
+  if (h < 12) return 'Good morning'
+  if (h < 18) return 'Good afternoon'
+  return 'Good evening'
+}
+
 export default function Dashboard() {
-  const { user } = useAuthStore()
-  const email = user?.email ?? ''
+  const today = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  })
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Good day! 👋</h1>
-        <p className="text-sm text-gray-500 mt-0.5">{email}</p>
-      </div>
+      <header>
+        <p className="text-xs text-ink/45">{today}</p>
+        <h1 className="font-display text-3xl font-semibold text-ink mt-1">{greeting()}.</h1>
+        <p className="text-sm text-ink/55 mt-1.5 leading-relaxed">
+          Five small steps, every day. That's how fluency is built.
+        </p>
+      </header>
 
       <DailyChecklist />
 
-      <div className="grid grid-cols-2 gap-3">
-        {features.map(({ to, icon, title, desc }) => (
-          <Link key={to} to={to} className="card hover:shadow-md transition-shadow block">
-            <div className="text-2xl mb-2">{icon}</div>
-            <div className="font-semibold text-sm text-gray-900">{title}</div>
-            <div className="text-xs text-gray-500 mt-0.5 leading-snug">{desc}</div>
-          </Link>
-        ))}
-      </div>
+      <section>
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink/40 mb-2.5">Also available</p>
+        <div className="grid grid-cols-2 gap-3">
+          {extras.map(({ to, icon, title, desc }) => (
+            <Link key={to} to={to} className="card block hover:border-accent/40 hover:-translate-y-0.5 transition-all">
+              <div className="text-2xl mb-2">{icon}</div>
+              <div className="font-display font-semibold text-ink leading-snug">{title}</div>
+              <div className="text-xs text-ink/50 mt-0.5 leading-snug">{desc}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

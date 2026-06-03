@@ -1,11 +1,22 @@
 import { supabase } from '@/lib/supabase'
 
-export type ActivityKey = 'vocab' | 'writing' | 'shadowing' | 'thinking' | 'speaking'
+// The 5 daily ritual steps, in flow order: Listen → Think → Review → Shadow → Write.
+export type ActivityKey = 'listening' | 'thinking' | 'vocab' | 'shadowing' | 'writing' | 'speaking'
+
+// The 5 steps that count toward the daily ritual (speaking stays as an optional extra).
+export const RITUAL_STEPS: Exclude<ActivityKey, 'speaking'>[] = [
+  'listening',
+  'thinking',
+  'vocab',
+  'shadowing',
+  'writing',
+]
 
 export interface DailyProgress {
   id?: string
   user_id?: string
   date: string
+  listening: boolean
   vocab: boolean
   writing: boolean
   shadowing: boolean
@@ -18,7 +29,7 @@ export function todayISO(): string {
 }
 
 export function countCompleted(p: DailyProgress): number {
-  return [p.vocab, p.writing, p.shadowing, p.thinking, p.speaking].filter(Boolean).length
+  return RITUAL_STEPS.filter((k) => p[k]).length
 }
 
 export async function fetchTodayProgress(userId: string): Promise<DailyProgress | null> {

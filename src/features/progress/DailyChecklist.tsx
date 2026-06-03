@@ -2,24 +2,19 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 import { DEV_USER_ID } from '@/lib/constants'
+import { RITUAL_ACTIVITIES } from './activities'
 import {
   fetchTodayProgress,
+  fetchLast30Days,
   markActivity,
   countCompleted,
   type ActivityKey,
   type DailyProgress,
 } from './progressService'
 
-const activities: { key: ActivityKey; icon: string; label: string; to: string }[] = [
-  { key: 'vocab', icon: '🃏', label: 'Flashcards', to: '/vocab' },
-  { key: 'writing', icon: '✍️', label: 'Writing Lab', to: '/writing' },
-  { key: 'shadowing', icon: '📖', label: 'Shadow Reading', to: '/shadow' },
-  { key: 'thinking', icon: '💭', label: 'Think in English', to: '/drill' },
-  { key: 'speaking', icon: '🎙️', label: 'Speaking Practice', to: '/speaking' },
-]
-
 const empty: DailyProgress = {
   date: '',
+  listening: false,
   vocab: false,
   writing: false,
   shadowing: false,
@@ -27,15 +22,36 @@ const empty: DailyProgress = {
   speaking: false,
 }
 
+function computeStreak(history: DailyProgress[]): number {
+  const byDate = new Map(history.map((p) => [p.date, p]))
+  let count = 0
+  const d = new Date()
+  // If today isn't complete yet, start the count from yesterday.
+  const todayIso = d.toISOString().split('T')[0]
+  const todayRow = byDate.get(todayIso)
+  if (!todayRow || countCompleted(todayRow) < 5) d.setDate(d.getDate() - 1)
+  for (;;) {
+    const iso = d.toISOString().split('T')[0]
+    const row = byDate.get(iso)
+    if (row && countCompleted(row) === 5) {
+      count++
+      d.setDate(d.getDate() - 1)
+    } else break
+  }
+  return count
+}
+
 export default function DailyChecklist() {
   const { user } = useAuthStore()
   const userId = user?.id ?? DEV_USER_ID
   const [progress, setProgress] = useState<DailyProgress>(empty)
+  const [streak, setStreak] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchTodayProgress(userId).then((p) => {
-      setProgress(p ?? empty)
+    Promise.all([fetchTodayProgress(userId), fetchLast30Days(userId)]).then(([today, hist]) => {
+      setProgress(today ?? empty)
+      setStreak(computeStreak(hist))
       setLoading(false)
     })
   }, [userId])
@@ -44,64 +60,90 @@ export default function DailyChecklist() {
     const newVal = !progress[key]
     setProgress((prev) => ({ ...prev, [key]: newVal }))
     const updated = await markActivity(userId, key, newVal)
-    if (updated) setProgress(updated)
+    if (updated) {
+      setProgress(updated)
+      const hist = await fetchLast30Days(userId)
+      setStreak(computeStreak(hist))
+    }
   }
 
   const completed = countCompleted(progress)
   const allDone = completed === 5
 
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-3">
+    <section className="card">
+      <div className="flex items-end justify-between mb-5">
         <div>
-          <h2 className="font-semibold text-gray-900">Today's Practice</h2>
-          <p className="text-xs text-gray-400 mt-0.5">
-            {allDone ? '🎉 All done for today!' : `${completed} / 5 completed`}
-          </p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Today's Path</p>
+          <h2 className="font-display text-xl font-semibold text-ink mt-0.5">
+            {allDone ? 'All five, done.' : `${completed} of 5 steps`}
+          </h2>
         </div>
-        <Link to="/progress" className="text-xs text-indigo-500 hover:text-indigo-700">
-          30-day history →
-        </Link>
+        <div className="text-right">
+          <div className="font-display text-2xl font-semibold text-ink leading-none">{streak}</div>
+          <div className="text-[11px] text-ink/45 mt-1">day streak</div>
+        </div>
       </div>
 
-      {allDone && (
-        <div className="mb-3 rounded-lg bg-green-50 border border-green-100 text-center py-2 text-sm text-green-700 font-medium animate-pulse">
-          ✨ Perfect day! Keep the streak going!
-        </div>
-      )}
-
-      <ul className="space-y-2">
-        {activities.map(({ key, icon, label, to }) => {
-          const done = progress[key]
+      <ol className="relative">
+        {RITUAL_ACTIVITIES.map((a, i) => {
+          const done = progress[a.key]
+          const isLast = i === RITUAL_ACTIVITIES.length - 1
           return (
-            <li key={key} className="flex items-center gap-3">
+            <li key={a.key} className="relative flex gap-4 pb-5 last:pb-0">
+              {/* connector line */}
+              {!isLast && (
+                <span
+                  className={`absolute left-[18px] top-9 bottom-0 w-px ${done ? 'bg-accent/40' : 'bg-ink/10'}`}
+                  aria-hidden
+                />
+              )}
+
+              {/* node / toggle */}
               <button
-                onClick={() => toggle(key)}
+                onClick={() => toggle(a.key)}
                 disabled={loading}
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                aria-label={`Mark ${a.label} ${done ? 'not done' : 'done'}`}
+                className={`relative z-10 shrink-0 w-9 h-9 rounded-full grid place-items-center border-2 transition-all ${
                   done
-                    ? 'bg-green-500 border-green-500 text-white'
-                    : 'border-gray-300 hover:border-indigo-400'
+                    ? 'bg-accent border-accent text-paper'
+                    : 'bg-card border-ink/20 text-ink/30 hover:border-accent/50'
                 }`}
-                aria-label={`Toggle ${label}`}
               >
-                {done && (
-                  <svg className="w-3 h-3" fill="none" viewBox="0 0 12 12">
-                    <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                {done ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 16 16">
+                    <path d="M3.5 8.5l3 3 6-6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
+                ) : (
+                  <span className="text-sm font-semibold">{a.step}</span>
                 )}
               </button>
-              <span className="text-base">{icon}</span>
-              <Link
-                to={to}
-                className={`text-sm flex-1 ${done ? 'line-through text-gray-400' : 'text-gray-700 hover:text-indigo-600'}`}
-              >
-                {label}
+
+              {/* label */}
+              <Link to={a.to} className="flex-1 min-w-0 pt-0.5 group">
+                <div className="flex items-center gap-2">
+                  <span className="text-base leading-none">{a.icon}</span>
+                  <span
+                    className={`font-medium ${
+                      done ? 'text-ink/40 line-through' : 'text-ink group-hover:text-accent'
+                    }`}
+                  >
+                    {a.label}
+                  </span>
+                </div>
+                <p className="text-xs text-ink/45 mt-0.5">{a.desc}</p>
               </Link>
             </li>
           )
         })}
-      </ul>
-    </div>
+      </ol>
+
+      <Link
+        to="/progress"
+        className="mt-4 block text-center text-xs text-ink/45 hover:text-accent transition-colors"
+      >
+        View 30-day history →
+      </Link>
+    </section>
   )
 }

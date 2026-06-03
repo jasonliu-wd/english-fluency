@@ -6,6 +6,7 @@ import ProtectedRoute from '@/components/ProtectedRoute'
 import Layout from '@/components/Layout'
 import LoginPage from '@/features/auth/LoginPage'
 import Dashboard from '@/features/dashboard/Dashboard'
+import ListeningPage from '@/features/listening/ListeningPage'
 import VocabPage from '@/features/vocab/VocabPage'
 import WritingPage from '@/features/writing/WritingPage'
 import ShadowPage from '@/features/shadow/ShadowPage'
@@ -15,19 +16,17 @@ import PhrasesPage from '@/features/phrases/PhrasesPage'
 import ProgressPage from '@/features/progress/ProgressPage'
 
 export default function App() {
-  const { setSession, setLoading } = useAuthStore()
+  const { setLoading } = useAuthStore()
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setLoading(false)
-    })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setLoading(false)
-    })
-    return () => subscription.unsubscribe()
-  }, [setSession, setLoading])
+    // Login-free single-user mode: clear any persisted session so the app
+    // always reads/writes under DEV_USER_ID. Without this, a leftover session
+    // flips `user` from null (DEV_USER_ID) to a real auth id mid-render, which
+    // makes Review/Write load and then empty out.
+    // To restore multi-user auth: re-enable ProtectedRoute and bring back
+    // getSession()/onAuthStateChange here.
+    supabase.auth.signOut().finally(() => setLoading(false))
+  }, [setLoading])
 
   return (
     <BrowserRouter>
@@ -42,6 +41,7 @@ export default function App() {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="listening" element={<ListeningPage />} />
           <Route path="vocab" element={<VocabPage />} />
           <Route path="writing" element={<WritingPage />} />
           <Route path="shadow" element={<ShadowPage />} />

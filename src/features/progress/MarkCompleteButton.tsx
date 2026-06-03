@@ -33,8 +33,8 @@ export default function MarkCompleteButton({ activity }: Props) {
       onClick={handleClick}
       className={`w-full py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2 ${
         done
-          ? 'bg-green-50 text-green-700 border border-green-200'
-          : 'bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100'
+          ? 'bg-accent text-paper border border-accent'
+          : 'bg-accent/10 text-accent border border-accent/25 hover:bg-accent/15'
       }`}
     >
       {done ? (

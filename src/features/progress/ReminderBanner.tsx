@@ -25,19 +25,19 @@ export default function ReminderBanner() {
   if (!show) return null
 
   return (
-    <div className="mx-4 mt-2 rounded-lg bg-indigo-50 border border-indigo-200 px-4 py-2.5 flex items-center gap-3 text-sm">
+    <div className="mx-4 mt-3 rounded-xl bg-accent/10 border border-accent/25 px-4 py-2.5 flex items-center gap-3 text-sm">
       <span className="text-lg">⏰</span>
-      <span className="flex-1 text-indigo-800">Don't forget today's practice!</span>
+      <span className="flex-1 text-ink/80">Don't forget today's practice!</span>
       <Link
-        to="/progress"
+        to="/"
         onClick={() => setShow(false)}
-        className="text-indigo-600 font-medium whitespace-nowrap hover:text-indigo-800"
+        className="text-accent font-medium whitespace-nowrap hover:text-accent-700"
       >
         View →
       </Link>
       <button
         onClick={() => { sessionStorage.setItem('reminder-dismissed', '1'); setShow(false) }}
-        className="text-indigo-400 hover:text-indigo-600 text-lg leading-none"
+        className="text-accent/50 hover:text-accent text-lg leading-none"
         aria-label="Dismiss"
       >
         ×

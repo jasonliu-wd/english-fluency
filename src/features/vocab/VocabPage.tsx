@@ -6,6 +6,7 @@ import { reviewCard, isDue, type Rating } from '@/lib/srs'
 import ReviewCard from './ReviewCard'
 import AddCardForm from './AddCardForm'
 import DayPlanTab from './DayPlanTab'
+import SentenceReview from './SentenceReview'
 import MarkCompleteButton from '@/features/progress/MarkCompleteButton'
 
 type VocabCard = {
@@ -19,7 +20,7 @@ type VocabCard = {
   repetitions: number
 }
 
-type Tab = 'review' | 'add' | 'plan' | 'all'
+type Tab = 'review' | 'sentences' | 'add' | 'plan' | 'all'
 
 export default function VocabPage() {
   const { user } = useAuthStore()
@@ -62,24 +63,28 @@ export default function VocabPage() {
   }
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: 'review', label: `Review${dueCards.length ? ` (${dueCards.length})` : ''}` },
+    { key: 'review', label: `Cards${dueCards.length ? ` (${dueCards.length})` : ''}` },
+    { key: 'sentences', label: 'Sentences' },
     { key: 'add', label: 'Add' },
-    { key: 'plan', label: '30-Day Plan' },
+    { key: 'plan', label: 'Plan' },
     { key: 'all', label: `All (${cards.length})` },
   ]
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-gray-900">🃏 Flashcards</h1>
+      <header>
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Step 3 · Review</p>
+        <h1 className="font-display text-2xl font-semibold text-ink mt-1">Vocab &amp; sentences</h1>
+      </header>
 
       {/* Tab bar */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+      <div className="flex gap-1 bg-ink/[0.05] rounded-xl p-1">
         {tabs.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setTab(key)}
-            className={`flex-1 text-xs font-medium py-1.5 rounded-md transition-colors ${
-              tab === key ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            className={`flex-1 text-xs font-medium py-1.5 rounded-lg transition-colors ${
+              tab === key ? 'bg-card text-accent shadow-sm' : 'text-ink/50 hover:text-ink'
             }`}
           >
             {label}
@@ -108,6 +113,9 @@ export default function VocabPage() {
           />
         )
       )}
+
+      {/* Sentences tab */}
+      {tab === 'sentences' && <SentenceReview />}
 
       {/* Add tab */}
       {tab === 'add' && (
